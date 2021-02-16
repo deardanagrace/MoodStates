@@ -1,33 +1,9 @@
 /***********************************************************************************
-	SimpleStateMachine - TEMPLATE
-	by Scott Kildall
+	Mood States
+	by. Dana Capistrano
 
-	Template:
-
-	(1) Add your own PNG files in the assets folder. Make sure they match the names ***exactly*** of the existing PNGs.
-	(2) Add custom drawing code to drawOne(), drawTwo(), drawThree(), drawFour(), drawFive()
-	(3) You can add your own interfaces - keys, mouse events, etc in the Interfaces section
-
-	Also start your localhost before running this, otherwise no PNGs will display
-
-------------------------------------------------------------------------------------
-	The way it works — you don't need to know this for the template use
-	* array of images gets loaded at startup
-	* drawFunction is a VARIABLE that points to a function varible name
-	* drawOne(), drawTwo(), etc. are set to be functions.
-	* the the keys 1-5 will change the drawFunction variable
-
-------------------------------------------------------------------------------------
-	Notes:
-	- a more advanced state machine with use array-indexing for each of
-		images the draw functions, but this is just for illustrative purposes
-
-	- even more advanced will be to put the draw functions into an array, would
-		be helpful for randomizing, go to the next function, etc
-
-	- next step after that would be to put interfaces into an array that maps to
-		the functions
-
+	A bunch of transparent mood images. When you click from 1-5,
+	the image changes to different moods. 
 
 ***********************************************************************************/
 
@@ -38,78 +14,121 @@ var images = [];
 var drawFunction;
 
 // offset from bottom of screen
-var gTextOffset = 20;
+var gTextOffset = 60;
+
+//color of "postit background"
+var offwhite = '#dcdaa9';
+
+//color of text color
+var orangetext = '#f96b03';
 
 // load all images into an array
 function preload() {
-  images[0] = loadImage('assets/one.png');
-  images[1] = loadImage('assets/two.png');
-  images[2] = loadImage('assets/three.png');
-  images[3] = loadImage('assets/four.png');
-  images[4] = loadImage('assets/five.png');
+    images[0] = loadImage('assets/moodintro.png');
+    images[1] = loadImage('assets/mood1.png');
+    images[2] = loadImage('assets/mood2.png');
+    images[3] = loadImage('assets/mood3.png');
+    images[4] = loadImage('assets/mood4.png');
+    images[5] = loadImage('assets/mood5.png');
 }
 
 // Center drawing, drawFunction will be one for default
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+    createCanvas(windowWidth, windowHeight);
 
-  // Center our drawing objects
-  imageMode(CENTER);
-  textAlign(CENTER);
-  textSize(24);
+    // Center our drawing objects
+    imageMode(CENTER);
+    rectMode(CENTER);
+    textAlign(CENTER);
+    textSize(24);
 
-  // set to one for startup
-  drawFunction = drawOne;
+    // set to one for startup
+    drawFunction = drawOne;
 }
 
 // Very simple, sets the background color and calls your state machine function
 function draw() {
-  background(192);
+    background('#01633d');
 
-  // will call your state machine function
-  drawFunction();
+    // will call your state machine function
+    drawFunction();
 }
 
 //========= TEMPLATE: modify these functions, INSIDE the function blocks only =========
 
 //-- drawOne() will draw the image at index 0 from the array
 drawOne = function() {
-   image(images[0],width/2, height/2);
-
-   fill(0,0,0);
-   text("State One", width/2, height - gTextOffset);
+    //image
+    image(images[0], width / 2, height / 2);
+    //text
+    fill(orangetext);
+    text("Press The number keys to start", width / 2, height - gTextOffset);
 }
 
 //-- drawTwo() will draw the image at index 1 from the array
 drawTwo = function() {
-   image(images[1],width/2, height/2);
-
-   fill(240,120,0);
-   text("State Two", width/2, height - gTextOffset);
+    //background
+    noStroke();
+    fill(offwhite);
+    square(width / 2, height / 2, 700);
+    //image
+    image(images[1], width / 2, height / 2);
+    //text
+    fill(orangetext);
+    text("Are you motived?", width / 2, height - gTextOffset);
 }
 
 //-- drawOne() will draw the image at index 2 from the array
 drawThree = function() {
-   image(images[2],width/2, height/2);
-
-   fill(40,230,120);
-   text("State Three", width/2, height - gTextOffset);
+    //background
+    noStroke();
+    fill(orangetext);
+    square(width / 2, height / 2, 700);
+    //image
+    image(images[2], width / 2, height / 2);
+    //text
+    fill(offwhite);
+    text("Are you over caffinated?", width / 2, height - gTextOffset);
 }
 
 //-- drawOne() will draw the image at index 3 from the array
 drawFour = function() {
-   image(images[3],width/2, height/2);
-
-   fill(255,255,178);
-   text("State Four", width/2, height - gTextOffset);
+    //background
+    noStroke();
+    fill(offwhite);
+    square(width / 2, height / 2, 700);
+    //image
+    image(images[3], width / 2, height / 2);
+    //text
+    fill(orangetext);
+    text("Are you Anxious?", width / 2, height - gTextOffset);
 }
 
 //-- drawOne() will draw the image at index 4 from the array
 drawFive = function() {
-   image(images[4],width/2, height/2);
+    //background
+    noStroke();
+    fill(orangetext);
+    square(width / 2, height / 2, 700);
+    //Images
+    image(images[4], width / 2, height / 2);
+    //text
+    fill(offwhite);
+    text("Are you lonely?", width / 2, height - gTextOffset);
+}
 
-   fill(230,50,50);
-   text("State Five", width/2, height - gTextOffset);
+// -- drawOne() will draw the image at index 5 from the array
+
+drawSix = function() {
+    //background
+    noStroke();
+    fill(offwhite);
+    square(width / 2, height / 2, 700);
+    //image
+    image(images[5], width / 2, height / 2);
+    //text
+    fill(orangetext);
+    text("Are you Overworked?", width / 2, height - gTextOffset);
 }
 
 
@@ -117,19 +136,15 @@ drawFive = function() {
 
 // Change the drawFunction variable based on your interaction
 function keyTyped() {
-  if( key === '1' ) {
-  	drawFunction = drawOne;
-  }
-  else if( key === '2' ) {
-  	drawFunction = drawTwo;
-  }
-  else if( key === '3' ) {
-  	drawFunction = drawThree;
-  }
-  else if( key === '4' ) {
-  	drawFunction = drawFour;
-  }
-  else if( key === '5' ) {
-  	drawFunction = drawFive;
-  }
+    if (key === '1') {
+        drawFunction = drawTwo;
+    } else if (key === '2') {
+        drawFunction = drawThree;
+    } else if (key === '3') {
+        drawFunction = drawFour;
+    } else if (key === '4') {
+        drawFunction = drawFive;
+    } else if (key === '5') {
+        drawFunction = drawSix;
+    }
 }
